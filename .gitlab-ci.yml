@@ -1,0 +1,8 @@
+build:
+  script:
+  - make
+  - rsync build/$CI_PROJECT_NAME.* bin
+  artifacts:
+    paths:
+    - bin
+    expire_in: never
