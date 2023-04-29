@@ -62,6 +62,8 @@ src/config.c
 src/config.h
 src/crc.c
 src/crc.h
+src/input.c
+src/input.h
 src/main.c
 src/modbus.c
 src/modbus.h

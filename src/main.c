@@ -1,4 +1,5 @@
 #include "config.h"
+#include "input.h"
 #include "modbus.h"
 
 static uint8_t rxData[MODBUS_MAX_LENGTH], rxLength = 0, rxFlag = 0;
@@ -10,6 +11,8 @@ int main(void)
 
     while (1)
     {
+        inputUpdate();
+
         if (rxFlag)
         {
             modbusHandler(rxData, rxLength);

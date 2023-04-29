@@ -1,4 +1,5 @@
 #include "config.h"
+#include "input.h"
 #include "modbus.h"
 #include "register.h"
 
@@ -17,6 +18,10 @@ uint8_t registerReadInput(uint16_t address, uint16_t *data, uint8_t *error)
 {
     switch (address)
     {
+        case REGISTER_INPUT_DATA:
+            *data = inputData;
+            return 1;
+
         case REGISTER_UPTIME_MSB:
             *data = (uint16_t) (uptime >> 16);
             return 1;
@@ -41,6 +46,10 @@ uint8_t registerReadHolding(uint16_t address, uint16_t *data, uint8_t *error)
 
         case REGISTER_CONFIG_BAUDRATE:
             *data = config.baudrate;
+            return 1;
+
+        case REGISTER_CONFIG_INVERT:
+            *data = config.invert;
             return 1;
 
         default:
@@ -80,6 +89,22 @@ uint8_t registerWriteHolding(uint16_t address, uint16_t *data, uint8_t *error)
             if (config.baudrate != *data)
             {
                 config.baudrate = *data;
+                configFlag = 1;
+            }
+
+            return 1;
+
+        case REGISTER_CONFIG_INVERT:
+
+            if (*data > 1)
+            {
+                *error = MODBUS_ERROR_VALUE;
+                return 0;
+            }
+
+            if (config.invert != *data)
+            {
+                config.invert = (uint8_t) *data;
                 configFlag = 1;
             }
 

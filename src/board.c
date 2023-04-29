@@ -7,7 +7,16 @@ static void boardInitGPIO(void)
     GPIO_InitTypeDef GPIO_InitStruct;
 
     GPIO_StructInit(&GPIO_InitStruct);
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+
+    GPIO_InitStruct.GPIO_Pin = SR_DATA_PIN;
+    GPIO_Init(SR_GPIO, &GPIO_InitStruct);
+
+    GPIO_StructInit(&GPIO_InitStruct);
     GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
+
+    GPIO_InitStruct.GPIO_Pin = SR_LOAD_PIN | SR_CLK_PIN;
+    GPIO_Init(SR_GPIO, &GPIO_InitStruct);
 
     GPIO_InitStruct.GPIO_Pin = LED_PIN;
     GPIO_Init(LED_GPIO, &GPIO_InitStruct);
