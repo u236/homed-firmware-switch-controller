@@ -22,6 +22,8 @@ int main(void)
 
         if (configFlag)
         {
+            USART_ITConfig(UART_PORT, USART_IT_RXNE, DISABLE);
+            TIM_ITConfig(UART_TIMER, TIM_IT_Update, DISABLE);
             configWrite();
             boardInitUART();
             configFlag = 0;

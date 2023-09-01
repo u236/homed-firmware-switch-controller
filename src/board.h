@@ -34,7 +34,6 @@
 
 #include <string.h>
 #include "stm32f0xx.h"
-#include "stm32f0xx_conf.h"
 
 extern uint32_t uptime;
 extern uint8_t blink;
